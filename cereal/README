@@ -1,0 +1,69 @@
+http://uscilab.github.io/cereal/index.html
+
+Choose an archive
+=========================
+
+cereal currently supports three basic archive types: binary (also available in a portable version), XML, and JSON. These archives are the middlemen between your code and your serialized data - they handle the reading and writing for you. XML and JSON archives are human readable but lack the performance (both space and time) of the binary archive. You can read all about these archives in the archives section of the documentation.
+
+Include your preferred archive with one of:
+
+#include <cereal/archives/binary.hpp>
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/archives/xml.hpp>
+#include <cereal/archives/json.hpp>
+
+
+Is there a simple C++ JSON parser with almost no dependencies?
+-------------------------------------------------------------------
+http://www.quora.com/Is-there-a-simple-C++-JSON-parser-with-almost-no-dependencies
+
+I like Cereal.
+
+Example code: dkorolev/sandbox_cereal   https://github.com/dkorolev/sandbox_cereal/blob/master/test_cereal.cc
+Blog post: Cereal is an Awesome C++ Serialization Library. http://dimakorolev.quora.com/Cereal-is-an-Awesome-C++-Serialization-Library
+
+Pros:
+Using robust C++ features.
+Header-only.
+Supports polymorphic types.
+Binary serialization support out of the box.
+
+Cons:
+Element packing in JSON is nontrivial, requires preparation work on node.js / Python side to have input JSON-s directly parsable by Cereal.
+Uses shared_ptr<T> for polymorphic types.
+
+
+A lower-level alternative might be miloyip/rapidjson. Personally, I found Cereal to be closer to how I prefer my C++ libraries shipped.
+
+
+Cereal is an Awesome C++ Serialization Library
+-------------------------------------------------
+One of those cases where the library is virtually as great for my taste as if the authors have been hanging out with me every evening discussing designs.
+
+Serialization and de-serialization w/o extra code.
+Most standard data types work out of the box.
+Binary- and JSON-friendly.
+Supports polymorphic types.
+Serializes to/from C++ streams.
+Header-only.
+
+Example usage:
+
+class SimpleType {
+public:
+    SimpleType() = default;
+
+    int int_;
+    std::string string_;
+    std::vector<uint8_t> vector_;
+    std::map<std::string, std::string> map_;
+
+private:
+    friend class cereal::access;
+    template<class A> void serialize(A& ar) {
+        ar(CEREAL_NVP(int_),
+        CEREAL_NVP(string_),
+        CEREAL_NVP(vector_),
+        CEREAL_NVP(map_));                                                                           
+    }
+};
