@@ -1,0 +1,29 @@
+jsoncpp: https://github.com/open-source-parsers/jsoncpp
+
+python amalgamate.py  ->   dist/jsoncpp.cpp, json.h, json-forwards.h  
+
+http://json.org/ 
+
+What is the best C++ JSON library?
+
+http://www.quora.com/What-is-the-best-C-JSON-library
+
+I've personally had decent experience with json_spirit (JSON Spirit: A C++ JSON Parser/Generator Implemented with Boost Spirit).  
+
+Pros:
+Objects and Arrays are std::vectors and std::maps, so SerDe code turns out to be rather simple and readable
+No need to deal with linked dependencies; json_spirit and its Boost dependencies can be used header-only.
+Clear and fairly well-documented code.  MIT license.
+
+Cons:
+It can be rather slow.  Reading several megabytes of floats takes several seconds even when compiled with -O3.  For comparison, python simplejson was a tiny bit (maybe 10%) faster for me, and I was able to get Protobuf to deserialize this data in ~100ms.  Sorry I don't have a more detailed performance report, but message me if you want more info.  My conclusion: if your schema is stable, go with Protobuf
+To use unicode support, you have to use special versions of the wArray and wObject class.  So far I've just avoided unicode in my JSON files... >_>
+Bug: in rare case, json_spirit will write floats without trailing zeros, e.g. "10.", which is not valid JSON.  The fix is to use the json_spirit::remove_trailing_zeros flag (which, despite its name, is meant to add a trailing zero when necessary).  However, this feature is actually buggy, too.  I had to patch json_spirit::remove_trailing() to get things working properly.
+The project doesn't seem to be under active development; however, the project is pretty mature as it is now.
+
+For a faster library, you might try rapidjson, which outperforms YAJL and Jsoncpp (and almost certainly json_spirit) in a November 2012 performance test:
+Performance - rapidjson - Compares some performance benchmark results of rapidjson 0.1 and other parsers. Also gives some analysis. - A fast JSON parser/generator for C++ with both SAX/DOM style API - Google Project Hosting
+
+Aside: why compare against YAJL, which is written in C?  For a while, YAJL was one of the fastest (the fastest?) JSON libraries (even on the iPhone [1]).  I've never tested YAJL myself, but one of my former colleagues was so impressed that he wrote an Objective-C wrapper to help with using YAJL in iPhone projects: yajl-objc.
+
+[1] JSON Parsing Speed Test: YAJL vs SBJSON (iPhone Edition)
