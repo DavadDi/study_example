@@ -12,11 +12,11 @@
 #include <string.h>
 #include <string>
 #include <stdio.h>
-
 #include <unistd.h>
 #include <ctime>
 //#include <time.h>
 #include <stdarg.h>
+#include <errno.h>
 
 int my_printf(const char *fmt, ...)
 {
@@ -111,6 +111,12 @@ class CTimerFileInfo
     public:
         CTimerFileInfo()
         {
+            m_file_prefix = "rec";
+            m_file_suffix = "log";
+            m_file_dir    = "./";
+            m_file_max_line = 100000; // 10w
+            m_file_max_size = 10*1024*1024; // 10M
+            m_file_start_seq = 0;
         }
 
         void file_prefix(const char *prefix)
@@ -135,8 +141,8 @@ class CTimerFileInfo
 
             // dir/prefix_year_month_day_hour_seq.suffix
             snprintf(date_buf, 256, "%04d_%02d_%02d_%02d_%02d_%02d",
-                    tm_time.tm_year + 1900, 
-                    tm_time.tm_mon + 1,  
+                    tm_time.tm_year + 1900,
+                    tm_time.tm_mon + 1,
                     tm_time.tm_mday,
                     tm_time.tm_hour,
                     tm_time.tm_min,
@@ -175,6 +181,15 @@ class CTimerFile
             m_file_seq = file_info.file_start_seq();
         }
 
+        ~CTimerFile()
+        {
+            if (m_file_stream != nullptr)
+            {
+                ::fclose(m_file_stream);
+                m_file_stream = nullptr;
+            }
+        }
+
 
         int write_data(const void *data, uint32_t len)
         {
@@ -199,7 +214,7 @@ class CTimerFile
         int create_file()
         {
             gen_file_name();
-            m_file_stream = fopen(m_file_name.c_str(), "a"); // can see man fopen, know flag 
+            m_file_stream = fopen(m_file_name.c_str(), "a"); // can see man fopen, know flag
 
             if (m_file_stream == nullptr)
             {
@@ -225,12 +240,12 @@ class CTimerFile
 
             bool create_file = false;
 
-            do 
+            do
             {
                 // check file_line
                 if (m_cur_file_line >= m_timer_file_info.file_max_line())
                 {
-                    //LOG_DEBUG("Cur file line [%d] max_file_line [%d]", 
+                    //LOG_DEBUG("Cur file line [%d] max_file_line [%d]",
                     //                    m_cur_file_line, m_timer_file_info.file_max_line());
 
                     create_file = true;
@@ -242,9 +257,9 @@ class CTimerFile
                 long file_size = ftell(m_file_stream);
                 if (file_size >= m_timer_file_info.file_max_size())
                 {
-                    //LOG_DEBUG("file size [%d], file_max_size [%d]", 
+                    //LOG_DEBUG("file size [%d], file_max_size [%d]",
                     //                    file_size, m_timer_file_info.file_max_size());
-                    
+
                     create_file = true;
                     break;
                 }
@@ -273,7 +288,7 @@ class CTimerFile
             }
 
             return 0;
-        } 
+        }
 
         void gen_file_name()
         {
@@ -288,8 +303,8 @@ class CTimerFile
                     m_timer_file_info.format_date().c_str(),
                     m_file_seq++%10000,
                     m_timer_file_info.file_suffix().c_str());
-            
-            m_file_name = file_name;   
+
+            m_file_name = file_name;
         }
 
     protected:

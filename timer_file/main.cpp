@@ -1,38 +1,93 @@
-#include "timer_file.hpp"
+#include "thread_record.hpp"
+#include <sstream>
+
+template <class T>
+std::string to_string(const T& t)
+{
+    std::ostringstream oss;
+    oss << t << "\n";
+    return oss.str();
+}
 
 int main()
 {
-    CTimerFileInfo tf_info;
 
-    tf_info.file_prefix("mysql");
-    tf_info.file_suffix("log");
-    tf_info.file_dir("./data/");
+    //STR_QUEUE str_queue;
 
-    tf_info.file_max_size(1024*1024);   // 1m
-    tf_info.file_max_line(10000);      // 10w
+    // start a recoder thread
+    CRecordThread<std::string>  rec_th;
+    CTimerFileInfo timer_file_info;
 
-    tf_info.file_max_timeout(60*60);   // one hour
-    tf_info.file_start_seq(0);
+    timer_file_info.file_prefix("mysql");
+    timer_file_info.file_suffix("log");
+    timer_file_info.file_dir("./data");
+    timer_file_info.file_max_size(1024*1024);
+    timer_file_info.file_max_line(10000);
+    timer_file_info.file_start_seq(0);
 
-    CTimerFile timer_file(tf_info);
-
-    char buf[1024];
-    for (int i = 1; i < 1000000; i++)
+    if (rec_th.open( timer_file_info ) < 0)
     {
-        snprintf(buf, 1024, "hellllllllllllllllllllll_%d\n", i);
-        
-        if (i%10000 == 0)
-        {
-            LOG_DEBUG("Sleep 1s");
-            sleep(1);
-        }
+        return -1;
+    }
 
-        if ( timer_file.write_data(buf, strlen(buf)) == -1)
+    std::string str;
+    for (int i = 0; i < 1000000; i++)
+    {
+        str = to_string(i);
+        rec_th.put_msg(str);
+
+        if (i %1000 == 0)
         {
-            fprintf(stderr, "write faied, break\n");
-            break;
+             sleep_ms(5);
         }
     }
 
+    rec_th.stop();
+
+    return 0;
+    /*
+    ReaderWriterQueue<uint32_t> q(1024);
+
+    auto reader_fun = [] (ReaderWriterQueue<uint32_t> &q)
+            {
+                fprintf(stderr, "Enter thread reader func\n");
+                uint32_t element = 0;
+                for (uint32_t j = 0; j < 1024;j ++)
+                {
+                    if (q.try_dequeue(element))
+                    {
+                        printf("Read %d\n", element);
+                        ++j;
+                    }
+
+                    sleep(1);
+
+                }
+
+                fprintf(stderr, "Exit thread reader\n");
+            };
+
+   std::thread reader = std::thread(reader_fun, std::ref(q));
+
+
+    auto writer_fun = [] (ReaderWriterQueue<uint32_t> &q)
+    {
+        fprintf(stderr, "Enter writer func");
+
+        for(uint32_t i = 0; i < 1024; i++)
+        {
+            fprintf(stderr, "write data %d\n", i);
+            q.enqueue(i);
+            sleep(1);
+        }
+
+        fprintf(stderr, "Exit write func\n");
+    };
+
+    std::thread writer  = std::thread(writer_fun, std::ref(q));
+
+    reader.join();
+    writer.join();
+*/
     return 0;
 }
