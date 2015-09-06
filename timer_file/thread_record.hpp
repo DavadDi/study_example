@@ -1,9 +1,10 @@
 #include <thread>
 #include <chrono>
-#include "timer_file.hpp"
-#include "readerwriterqueue.h"
 #include <string>
 #include <unistd.h>
+
+#include "timer_file.hpp"
+#include "readerwriterqueue.h"
 
 class CThread
 {
