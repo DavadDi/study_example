@@ -38,6 +38,24 @@ int main(int /*argc*/, const char * /*argv*/[]) {
                             Color_Blue);
 
   builder.Finish(mloc);
+
+  /*
+   * FlatBufferBuilder fbb;
+   *
+   * auto name = fbb.CreateString("MyMonster");
+   * unsigned char inv[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9  };
+   * auto inventory = fbb.CreateVector(inv, 10);
+   *Vec3 vec(1, 2, 3);
+
+   * MonsterBuilder mb(fbb);
+   * mb.add_pos(&vec);
+   * mb.add_hp(80);
+   * mb.add_name(name);
+   * mb.add_inventory(inventory);
+   * auto mloc = mb.Finish();
+   */
+
+
   // We now have a FlatBuffer we can store or send somewhere.
 
   // ** file/network code goes here :) **

@@ -1,11 +1,51 @@
-#include <thread>
-#include "readerwriterqueue.h"
-using namespace moodycamel;
+#include "thread_record.hpp"
+#include <sstream>
 
-#include <unistd.h>
+template <class T>
+std::string to_string(const T& t)
+{
+    std::ostringstream oss;
+    oss << t << "\n";
+    return oss.str();
+}
 
 int main()
 {
+
+    STR_QUEUE str_queue;
+
+    // start a recoder thread
+    CRecordThread rec_th;
+    CTimerFileInfo timer_file_info;
+
+    timer_file_info.file_prefix("mysql");
+    timer_file_info.file_suffix("log");
+    timer_file_info.file_dir("./data");
+    timer_file_info.file_max_size(1024*1024);
+    timer_file_info.file_max_line(10000);
+    timer_file_info.file_start_seq(0);
+
+    if (rec_th.open(&str_queue, timer_file_info) < 0)
+    {
+        return -1;
+    }
+
+    std::string str;
+    for (int i = 0; i < 1000000; i++)
+    {
+        str = to_string(i);
+        str_queue.enqueue(str);
+
+        if (i %1000 == 0)
+        {
+             sleep_ms(5);
+        }
+    }
+
+    rec_th.stop();
+
+    return 0;
+    /*
     ReaderWriterQueue<uint32_t> q(1024);
 
     auto reader_fun = [] (ReaderWriterQueue<uint32_t> &q)
@@ -48,6 +88,6 @@ int main()
 
     reader.join();
     writer.join();
-
+*/
     return 0;
 }
