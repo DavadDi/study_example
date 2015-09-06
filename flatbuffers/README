@@ -1,0 +1,8 @@
+git clone https://github.com/google/flatbuffers.git
+cd flatbuffers/build 
+cmake ../
+
+gen flatc 
+
+
+http://google.github.io/flatbuffers/

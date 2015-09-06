@@ -1,0 +1,34 @@
+
+//////////////////////////////////////////////////////
+//// FILE     : tellist.fbs
+//// DESC     : basic message for msg-center
+//// AUTHOR   : v 0.1 written by Alex Stocks on June 22, 2014
+//// LICENCE  :
+//// MOD      :
+////////////////////////////////////////////////////////
+
+namespace as.tellist;
+
+enum GENDER_TYPE : byte
+{
+	MALE	= 0,
+	FEMALE	= 1,
+	OTHER	= 2
+}
+
+table personal_info
+{
+	id : uint;
+	name : string;
+	age : byte;
+	gender : GENDER_TYPE;
+	phone_num : ulong;
+}
+
+table personal_info_list
+{
+	info : [personal_info];
+}
+
+root_type personal_info_list;
+

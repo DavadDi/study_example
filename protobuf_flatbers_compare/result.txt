@@ -1,0 +1,82 @@
+测试环境：12Core Intel(R) Xeon(R) CPU E5-2620 0 @ 2.00GHz
+free
+             total       used       free     shared    buffers     cached
+Mem:      66081944   62222028    3859916          0     196448   43690828
+-/+ buffers/cache:   18334752   47747192
+Swap:       975864     855380     120484
+
+protobuf三次测试结果：
+bin/tellist_pb 
+encode: loop = 1000000, time diff = 14210ms
+decode: loop = 1000000, time diff = 11185ms
+buf size:841
+
+bin/tellist_pb 
+encode: loop = 1000000, time diff = 14100ms
+decode: loop = 1000000, time diff = 11234ms
+buf size:841
+
+bin/tellist_pb 
+encode: loop = 1000000, time diff = 14145ms
+decode: loop = 1000000, time diff = 11237ms
+buf size:841
+序列化后占用内存空间841Byte，encode平均运算时间42455ms / 3 = 14151.7ms，decode平均计算时间33656ms / 3 = 11218.7ms
+
+flatbuffers三次测试结果：
+ bin/tellist_fb 
+encode: loop = 1000000, time diff = 11666ms
+decode: loop = 1000000, time diff = 1141ms
+buf size:1712
+
+bin/tellist_fb 
+encode: loop = 1000000, time diff = 11539ms
+decode: loop = 1000000, time diff = 1200ms
+buf size:1712
+
+bin/tellist_fb 
+encode: loop = 1000000, time diff = 11737ms
+decode: loop = 1000000, time diff = 1141ms
+buf size:1712
+序列化后占用内存空间1712Byte，encode平均运算时间34942ms / 3 = 11647.3ms，decode平均计算时间3482ms / 3 = 1160.7ms
+
+
+测试环境：1 Core Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
+free
+             total       used       free     shared    buffers     cached
+Mem:        753932     356036     397896          0      50484     224848
+-/+ buffers/cache:      80704     673228
+Swap:      1324028        344    1323684
+protobuf三次测试结果：
+./bin/tellist_pb 
+encode: loop = 1000000, time diff = 12451ms
+decode: loop = 1000000, time diff = 9662ms
+buf size:841
+
+./bin/tellist_pb 
+encode: loop = 1000000, time diff = 12545ms
+decode: loop = 1000000, time diff = 9840ms
+buf size:841
+
+./bin/tellist_pb 
+encode: loop = 1000000, time diff = 12554ms
+decode: loop = 1000000, time diff = 10460ms
+buf size:841
+序列化后占用内存空间841Byte，encode平均运算时间37550ms / 3 = 12516.7ms，decode平均计算时间29962ms / 3 = 9987.3ms
+
+flatbuffers三次测试结果：
+bin/tellist_fb 
+encode: loop = 1000000, time diff = 9640ms
+decode: loop = 1000000, time diff = 1164ms
+buf size:1712
+
+bin/tellist_fb 
+encode: loop = 1000000, time diff = 9595ms
+decode: loop = 1000000, time diff = 1170ms
+buf size:1712
+
+bin/tellist_fb 
+encode: loop = 1000000, time diff = 9570ms
+decode: loop = 1000000, time diff = 1172ms
+buf size:1712
+序列化后占用内存空间1712Byte，encode平均运算时间28805ms / 3 = 9345ms，decode平均计算时间3506ms / 3 = 1168.7ms
+

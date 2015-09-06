@@ -1,0 +1,31 @@
+//////////////////////////////////////////////////////
+//// FILE     : tellist.proto
+//// DESC     : basic message for msg-center
+//// AUTHOR   : v 0.1 written by Alex Stocks on June 22, 2014
+//// LICENCE  :
+//// MOD      :
+////////////////////////////////////////////////////////
+
+package as.tellist;
+
+enum gender_type
+{
+	MALE	= 0;
+	FEMALE	= 1;
+	OTHER	= 2;
+}
+
+message personal_info
+{
+	optional uint32			id = 1;
+	optional string			name = 2;
+	optional uint32			age = 3;
+	optional gender_type	gender = 4;
+	optional uint64			phone_num = 5;
+}
+
+message personal_info_list
+{
+	repeated personal_info	info = 1;
+}
+
