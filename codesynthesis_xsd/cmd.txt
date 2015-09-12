@@ -1,0 +1,11 @@
+install dev lib on debian
+
+$sudo aptitude search libxerces*
+$sudo apt-get install libxerces-c3.1
+$sudo apt-get install libxerces-c-dev
+$sudo apt-get install libxerces-c-samples  #install sample
+install xsd
+
+sample: /usr/share/doc/xsd/examples/cxx
+
+$xsd cxx-tree hello.xsd
