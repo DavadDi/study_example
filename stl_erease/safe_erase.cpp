@@ -1,6 +1,8 @@
 #include <unordered_map>
 #include <iostream>
 
+// http://en.cppreference.com/w/cpp/container/unordered_map/erase
+//
 int main()
 {
     std::unordered_map<int, std::string> c = {{1, "one"}, {2, "two"}, {3, "three"},
