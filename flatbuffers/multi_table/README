@@ -1,3 +1,16 @@
+
+1.  命名空间的问题
+-----------------------------
+
+namespace 1.0.3 版本包含文件类型前面不需要加命名空间，但是1.1.0 中包含需要在类型前加命名空间
+
+include必须放在namespace前面
+例如：
+include “aa.fbs”
+namespace IM.test;
+
+
+
 foo.fbc
 namespace foo;
 struct Foo { f: uint; }
@@ -23,6 +36,9 @@ error: structs_ may contain only scalar or struct fields
 
 因为 struct 结构中不能使用 string 类型，修改成  table 即可
 
+2. struct 和 table的区别
+------------------------------
+
 http://www.coder4.com/archives/4386
 基本类型： 
 
@@ -38,6 +54,9 @@ http://www.coder4.com/archives/4386
 Struct 只支持基本类型或者嵌套Struct
 Table 类似Struct，但是可以支持任何类型。
 
+3. roottype的问题及多个table的解决方式
+------------------------------------------
+
 https://github.com/google/flatbuffers/issues/65  
 Why the need for a Root
 
@@ -49,3 +68,32 @@ b) prefix flatbuffers with your own file header
 c) use flatbuffer's built-in file indentification feature, which hasn't been ported to Java yet. I'll get to that.
 
 3) That's a bug, the 1 should actually read: Any.Monster. I'll fix that.
+
+多个消息一个文件中，但是root_type 只能有一个，解决方式如下：
+namespace TestApp;
+
+union Msg {TestObj, Hello}
+
+struct KV {
+    key: ulong;
+    value: double;
+}
+
+table TestObj {
+    id:ulong;
+    name:string;
+    flag:ubyte = 0;
+    list:[ulong];
+    kv:KV;
+}
+
+table Hello {
+    id:uint;
+    name:string;
+}
+
+table RootMsg{
+    any:Msg;
+}
+
+root_type RootMsg;
