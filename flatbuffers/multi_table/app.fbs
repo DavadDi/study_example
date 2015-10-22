@@ -1,0 +1,27 @@
+namespace TestApp;
+
+union Msg {TestObj, Hello}
+
+struct KV {
+    key: ulong;
+    value: double;
+}
+
+table TestObj {
+    id:ulong;
+    name:string;
+    flag:ubyte = 0;
+    list:[ulong];
+    kv:KV;
+}
+
+table Hello {
+    id:uint;
+    name:string;
+}
+
+table RootMsg{
+    any:Msg;
+}
+
+root_type RootMsg;
