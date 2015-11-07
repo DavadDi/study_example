@@ -1,0 +1,99 @@
+
+1.  命名空间的问题
+-----------------------------
+
+namespace 1.0.3 版本包含文件类型前面不需要加命名空间，但是1.1.0 中包含需要在类型前加命名空间
+
+include必须放在namespace前面
+例如：
+include “aa.fbs”
+namespace IM.test;
+
+
+
+foo.fbc
+namespace foo;
+struct Foo { f: uint; }
+
+bar.fbc
+include "foo.fbc";
+namespace bar;
+struct Bar { foo: Foo; }
+
+flatc -c bar.fbc will fail with bar.fbc:3:0: error: structs_ may contain only scalar or struct fields
+
+修改方式：
+struct Bar { foo: Foo; } ->  struct Bar { foo: foo.Foo; }  或者 将 struct 修改成 table
+
+
+
+struct UserInfo{
+        user_id:uint;
+                    name:string
+}
+
+error: structs_ may contain only scalar or struct fields
+
+因为 struct 结构中不能使用 string 类型，修改成  table 即可
+
+2. struct 和 table的区别
+------------------------------
+
+http://www.coder4.com/archives/4386
+基本类型： 
+
+8 bit: byte ubyte bool
+16 bit: short ushort
+32 bit: int uint float
+64 bit: long ulong double
+
+复杂类型：
+
+数组 (用中括号表示 [type]). 不支持嵌套数组，可以用table实现
+字符串 string, 支持 UTF-8 或者 7-bit ASCII. 对于其他编码可以用数组 [byte]或者[ubyte]表示。
+Struct 只支持基本类型或者嵌套Struct
+Table 类似Struct，但是可以支持任何类型。
+
+3. roottype的问题及多个table的解决方式
+------------------------------------------
+
+https://github.com/google/flatbuffers/issues/65  
+Why the need for a Root
+
+1) a commit was pushed yesterday that adds GetRootAs functions for all tables, not just the root_type.
+
+2) generally no. this is a strongly types system, meaning you need to know the kind of buffer you're dealing with. If you want to use this in a context where you want to have multiple different root types, you have these options:
+a) make your root type a table that contains a union of all possible sub-roots.
+b) prefix flatbuffers with your own file header
+c) use flatbuffer's built-in file indentification feature, which hasn't been ported to Java yet. I'll get to that.
+
+3) That's a bug, the 1 should actually read: Any.Monster. I'll fix that.
+
+多个消息一个文件中，但是root_type 只能有一个，解决方式如下：
+namespace TestApp;
+
+union Msg {TestObj, Hello}
+
+struct KV {
+    key: ulong;
+    value: double;
+}
+
+table TestObj {
+    id:ulong;
+    name:string;
+    flag:ubyte = 0;
+    list:[ulong];
+    kv:KV;
+}
+
+table Hello {
+    id:uint;
+    name:string;
+}
+
+table RootMsg{
+    any:Msg;
+}
+
+root_type RootMsg;
