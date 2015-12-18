@@ -8,3 +8,8 @@ http://www.json.org/json-zh.html
 get consul api (json format) and print http code and body
 
 prepare for consul c++ http client
+
+
+http://curl.haxx.se/libcurl/cplusplus/
+
+c++ wrapper for curl
