@@ -1,0 +1,6 @@
+使用hiredis的async异布接口，集成到reactor的框架中，参照样例可以很容易集成到asio或者ACE的框架中。
+
+支持自动重练和asyncRedisContext对象的创建和释放，重练使用退步算法，最大连接时间间隔为32秒。
+
+使用方式：
+将redis_client.hpp 放到 hiredis的adapter目录即可。
