@@ -1,0 +1,163 @@
+PING_INLINE: -nan                                |   PING_INLINE: 200999.98                          
+====== PING_INLINE ======                        |   ====== PING_INLINE ======                       
+  10000 requests completed in 0.06 seconds       |     10000 requests completed in 0.04 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+100.00% <= 0 milliseconds                        |   100.00% <= 0 milliseconds                       
+175438.59 requests per second                    |   285714.28 requests per second                   
+                                                 |                                                   
+====== PING_BULK ======                          |   ====== PING_BULK ======                         
+  10000 requests completed in 0.06 seconds       |     10000 requests completed in 0.04 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+100.00% <= 0 milliseconds                        |   100.00% <= 0 milliseconds                       
+178571.42 requests per second                    |   285714.28 requests per second                   
+                                                 |                                                   
+====== SET ======                                |   ====== SET ======                               
+  10000 requests completed in 0.06 seconds       |     10000 requests completed in 0.04 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+100.00% <= 0 milliseconds                        |   100.00% <= 0 milliseconds                       
+175438.59 requests per second                    |   285714.28 requests per second                   
+                                                 |                                                   
+====== GET ======                                |   ====== GET ======                               
+  10000 requests completed in 0.06 seconds       |     10000 requests completed in 0.04 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+99.51% <= 2 milliseconds                         |   100.00% <= 0 milliseconds                       
+100.00% <= 2 milliseconds                        |   285714.28 requests per second                   
+178571.42 requests per second                    |                                                   
+                                                 |                                                   
+INCR: 178277.78                                  |                                                   
+====== INCR ======                               |   ====== INCR ======                              
+  10000 requests completed in 0.05 seconds       |     10000 requests completed in 0.04 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+100.00% <= 0 milliseconds                        |   100.00% <= 0 milliseconds                       
+181818.19 requests per second                    |   277777.78 requests per second                   
+                                                 |                                                   
+====== LPUSH ======                              |   ====== LPUSH ======                             
+  10000 requests completed in 0.05 seconds       |     10000 requests completed in 0.03 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+100.00% <= 0 milliseconds                        |   100.00% <= 0 milliseconds                       
+185185.19 requests per second                    |   294117.62 requests per second                   
+                                                 |                                                   
+====== LPOP ======                               |   ====== LPOP ======                              
+  10000 requests completed in 0.05 seconds       |     10000 requests completed in 0.03 seconds      
+  50 parallel clients                            |     50 parallel clients                           
+  3 bytes payload                                |     3 bytes payload                               
+  keep alive: 1                                  |     keep alive: 1                                 
+                                                 |                                                   
+100.00% <= 0 milliseconds                        |   100.00% <= 0 milliseconds                       
+181818.19 requests per second                    |   303030.31 requests per second                   
+                                                 |
+                                                 |    SADD: 229333.33                                                                                      
+====== SADD ======                               |    ====== SADD ======                                 
+  10000 requests completed in 0.05 seconds       |      10000 requests completed in 0.03 seconds         
+  50 parallel clients                            |      50 parallel clients                              
+  3 bytes payload                                |      3 bytes payload                                  
+  keep alive: 1                                  |      keep alive: 1                                    
+                                                 |                                                       
+100.00% <= 0 milliseconds                        |    100.00% <= 0 milliseconds                          
+185185.19 requests per second                    |    303030.31 requests per second                      
+                                                 |                                                       
+SPOP: 178155.55                                  |                                                       
+====== SPOP ======                               |    ====== SPOP ======                                 
+  10000 requests completed in 0.05 seconds       |      10000 requests completed in 0.04 seconds         
+  50 parallel clients                            |      50 parallel clients                              
+  3 bytes payload                                |      3 bytes payload                                  
+  keep alive: 1                                  |      keep alive: 1                                    
+                                                 |                                                       
+100.00% <= 0 milliseconds                        |    99.73% <= 1 milliseconds                           
+181818.19 requests per second                    |    100.00% <= 1 milliseconds                          
+                                                 |    285714.28 requests per second                      
+                                                 |                                                         
+====== LPUSH (needed to benchmark LRANGE) ====== |    ====== LPUSH (needed to benchmark LRANGE) ======    
+  10000 requests completed in 0.05 seconds       |      10000 requests completed in 0.03 seconds          
+  50 parallel clients                            |      50 parallel clients                               
+  3 bytes payload                                |      3 bytes payload                                   
+  keep alive: 1                                  |      keep alive: 1                                     
+                                                 |                                                        
+100.00% <= 0 milliseconds                        |    100.00% <= 0 milliseconds                           
+185185.19 requests per second                    |    303030.31 requests per second                       
+                                                 |                                                        
+====== LRANGE_100 (first 100 elements) ======    |    ====== LRANGE_100 (first 100 elements) ======       
+  10000 requests completed in 0.12 seconds       |      10000 requests completed in 0.10 seconds          
+  50 parallel clients                            |      50 parallel clients                               
+  3 bytes payload                                |      3 bytes payload                                   
+  keep alive: 1                                  |      keep alive: 1                                     
+                                                 |                                                        
+99.72% <= 1 milliseconds                         |    100.00% <= 0 milliseconds                           
+100.00% <= 1 milliseconds                        |    99009.90 requests per second                        
+80000.00 requests per second                     |                                                        
+                                                 |    LRANGE_300 (first 300 elements): 29468.09           
+LRANGE_300 (first 300 elements): 27122.81        |    LRANGE_300 (first 300 elements): 30323.23           
+LRANGE_300 (first 300 elements): 26625.41        |    ====== LRANGE_300 (first 300 elements) ======       
+====== LRANGE_300 (first 300 elements) ======    |      10000 requests completed in 0.33 seconds          
+  10000 requests completed in 0.38 seconds       |      50 parallel clients                               
+  50 parallel clients                            |      3 bytes payload                                   
+  3 bytes payload                                |      keep alive: 1                                     
+  keep alive: 1                                  |                                                        
+                                                 |    96.02% <= 1 milliseconds                            
+78.60% <= 1 milliseconds                         |    100.00% <= 1 milliseconds                           
+100.00% <= 1 milliseconds                        |    30303.03 requests per second                        
+26525.20 requests per second                     |                                                        
+                                                 |    LRANGE_500 (first 450 elements): 18543.78           
+LRANGE_500 (first 450 elements): 17284.92        |    LRANGE_500 (first 450 elements): 18449.68           
+LRANGE_500 (first 450 elements): 17237.76        |    ====== LRANGE_500 (first 450 elements) ======       
+====== LRANGE_500 (first 450 elements) ======    |      10000 requests completed in 0.54 seconds          
+  10000 requests completed in 0.58 seconds       |      50 parallel clients                               
+  50 parallel clients                            |      3 bytes payload                                   
+  3 bytes payload                                |      keep alive: 1                                     
+  keep alive: 1                                  |                                                        
+                                                 |    3.69% <= 1 milliseconds                             
+2.06% <= 1 milliseconds                          |    99.11% <= 2 milliseconds                            
+98.19% <= 2 milliseconds                         |    100.00% <= 2 milliseconds                           
+99.47% <= 3 milliseconds                         |    18416.21 requests per second                        
+99.51% <= 4 milliseconds                         |                                                        
+99.83% <= 5 milliseconds                         |    LRANGE_600 (first 600 elements): 14254.34           
+100.00% <= 5 milliseconds                        |    LRANGE_600 (first 600 elements): 14408.98           
+17152.66 requests per second                     |    LRANGE_600 (first 600 elements): 14479.94           
+                                                 |    ====== LRANGE_600 (first 600 elements) ======       
+LRANGE_600 (first 600 elements): 13145.83        |      10000 requests completed in 0.69 seconds          
+LRANGE_600 (first 600 elements): 13135.45        |      50 parallel clients                               
+LRANGE_600 (first 600 elements): 13179.23        |      3 bytes payload                                   
+====== LRANGE_600 (first 600 elements) ======    |      keep alive: 1                                     
+  10000 requests completed in 0.76 seconds       |                                                        
+  50 parallel clients                            |    1.19% <= 1 milliseconds                             
+  3 bytes payload                                |    81.78% <= 2 milliseconds                            
+  keep alive: 1                                  |    99.31% <= 3 milliseconds                            
+                                                 |    100.00% <= 4 milliseconds                           
+0.22% <= 1 milliseconds                          |    14471.78 requests per second                        
+76.74% <= 2 milliseconds                         |                                                        
+99.17% <= 3 milliseconds                         |    ====== MSET (10 keys) ======                        
+99.77% <= 4 milliseconds                         |      10000 requests completed in 0.06 seconds          
+100.00% <= 4 milliseconds                        |      50 parallel clients                               
+13175.23 requests per second                     |      3 bytes payload                                   
+                                                 |      keep alive: 1                                     
+MSET (10 keys): 74337.20                         |                                                        
+====== MSET (10 keys) ======                     |    100.00% <= 0 milliseconds                           
+  10000 requests completed in 0.13 seconds       |    178571.42 requests per second                       
+  50 parallel clients                            |
+  3 bytes payload                                |                                                       
+  keep alive: 1                                  |
+                                                 |                                                   
+99.13% <= 1 milliseconds                         |   
+100.00% <= 1 milliseconds                        |   
+74626.87 requests per second                     |   
+                                                 |   
+                                                 |   
+                                                         
