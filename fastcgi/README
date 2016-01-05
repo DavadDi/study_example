@@ -1,0 +1,27 @@
+spawn-fcgi http://redmine.lighttpd.net/projects/spawn-fcgi/wiki
+fcgi http://www.fastcgi.com/drupal/node/6?q=node/21
+
+on:
+Linux debian-11-34 3.16.0-4-amd64 #1 SMP Debian 3.16.7-ckt9-3~deb8u1 (2015-04-24) x86_64 GNU/Linux
+
+CPU 4 Core and 16G Mem
+
+see also:
+http://www.cnblogs.com/skynet/p/4173450.html
+
+
+./spawn-fcgi -F 5 -s /tmp/echo.sock -f `pwd`/echo
+ab -n 100000 -c 500 http://127.0.0.1:8000/demo_uinix.cgi
+
+Concurrency Level:      500
+Time taken for tests:   4.138 seconds
+Complete requests:      100000
+Failed requests:        0
+Non-2xx responses:      100000
+Total transferred:      31700000 bytes
+HTML transferred:       16800000 bytes
+Requests per second:    24165.32 [#/sec] (mean)
+Time per request:       20.691 [ms] (mean)
+Time per request:       0.041 [ms] (mean, across all concurrent requests)
+Transfer rate:          7480.87 [Kbytes/sec] received
+
