@@ -8,7 +8,7 @@ CPU 4 Core and 16G Mem
 
 see also:
 http://www.cnblogs.com/skynet/p/4173450.html
-
+http://chriswu.me/blog/writing-hello-world-in-fcgi-with-c-plus-plus/
 
 ./spawn-fcgi -F 5 -s /tmp/echo.sock -f `pwd`/echo
 ab -n 100000 -c 500 http://127.0.0.1:8000/demo_uinix.cgi
