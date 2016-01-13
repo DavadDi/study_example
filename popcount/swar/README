@@ -2,7 +2,7 @@ BITCOUNT命令是统计一个位数组中非0进制位的数量，数学上称�
 
 目前效率最好的为variable-precision SWAR算法，可以常数时间内计算出多个字节的非0数目，算法设计的非常精巧，值得学习。
 
-
+https://en.wikipedia.org/wiki/Hamming_weight
 
 int swar(uint32_t i)
 {
