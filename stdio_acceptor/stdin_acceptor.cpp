@@ -8,6 +8,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+#include <errno.h>
+
 #define PORT 4711
 
 
@@ -20,9 +22,10 @@ int main(void) {
     bind(sockfd, (struct sockaddr*) &addr, sizeof (addr));
     listen(sockfd, 10);
 
+    fprintf(stderr, "Start listen on port %d, u can input msg after >\n", PORT);
     int epollfd = epoll_create1(0);
     struct epoll_event event;
-    
+
     // add stdin
     event.events = EPOLLIN|EPOLLPRI|EPOLLERR;
     event.data.fd = STDIN_FILENO;
@@ -30,7 +33,7 @@ int main(void) {
         perror("epoll_ctr add stdin failed.");
         return 1;
     }
-    
+
     // add socket
     event.events = EPOLLIN|EPOLLPRI|EPOLLERR;
     event.data.fd = sockfd;
@@ -74,7 +77,13 @@ int main(void) {
 
             const char *str = "This is a test. Bye\n";
             send(clientfd, str, strlen(str), 0);
-            close(clientfd);
+            //close(clientfd);
+            shutdown(clientfd, SHUT_WR);
+            int result = epoll_ctl(epollfd, EPOLL_CTL_DEL, clientfd, 0);
+            if(result < 0)
+            {
+                fprintf(stderr, "epoll_ctl remove error %s, %d\n", strerror(errno), clientfd);
+            }
         } else {
             // cannot happen™
             fprintf(stderr, "Bad fd: %d\n", event.data.fd);
@@ -83,7 +92,7 @@ int main(void) {
     }
 
     close(epollfd);
-    close(sockfd);
+    //close(sockfd);
     return 0;
 
 }

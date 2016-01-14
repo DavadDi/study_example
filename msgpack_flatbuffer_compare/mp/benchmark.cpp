@@ -38,6 +38,8 @@ int main(int argc, const char *argv[])
     std::vector<myclass> vec;
     vec.push_back(cls);
 
+    std::vector<myclass> rvec;
+
     for (int i = 0; i < 1000000; i++)
     {
         msgpack::pack(sbuf, vec);
@@ -45,11 +47,8 @@ int main(int argc, const char *argv[])
 
         msgpack::unpack(&msg, sbuf.data(), sbuf.size());
         msgpack::object obj = msg.get();
-        std::vector<myclass> rvec;
-        
-        
+                
         obj.convert(&rvec);
-
         if (rvec[0].id() != 0x123456)
         {
             fprintf(stderr, "Error\n");

@@ -1,2 +1,51 @@
-time ./mp/mp_benchmark
-time ./fb/fb_benchmark
+1000000  (100w encode and decode)
+
+time ./mp_benchmark
+--------------------
+real    0m4.916s
+user    0m4.876s
+sys 0m0.024s
+
+time ./mp_benchmark_O1
+--------------------
+real    0m1.222s
+user    0m1.184s
+sys 0m0.032s
+
+time ./mp_benchmark_O2
+--------------------
+real    0m1.146s
+user    0m1.104s
+sys 0m0.036s
+
+time ./mp_benchmark_O3
+--------------------
+real    0m1.082s
+user    0m1.064s
+sys 0m0.012s
+
+
+time ./fb_benchmark
+--------------------
+real    0m2.038s
+user    0m1.984s
+sys 0m0.048s
+
+time ./fb_benchmark_O1
+--------------------
+real    0m0.303s
+user    0m0.256s
+sys 0m0.044s
+
+time ./fb_benchmark_O2
+--------------------
+real    0m0.239s
+user    0m0.192s
+sys 0m0.044s
+
+time ./fb_benchmark_O3
+--------------------
+real    0m0.248s
+user    0m0.176s
+sys 0m0.060s
+
