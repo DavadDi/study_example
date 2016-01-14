@@ -1,0 +1,9 @@
+table myclass
+{
+    user_id: uint;
+    user_name: string;
+    data: [string];
+}
+
+
+root_type myclass;

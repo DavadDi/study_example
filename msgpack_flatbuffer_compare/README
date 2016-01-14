@@ -1,0 +1,2 @@
+time ./mp/mp_benchmark
+time ./fb/fb_benchmark
