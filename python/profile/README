@@ -1,0 +1,5 @@
+python -m cProfile -o sum.out sum.py
+python -c "import pstats; p=pstats.Stats('sum.out'); p.print_stats()"
+python -c "import pstats; p=pstats.Stats('sum.out'); p.sort_stats('time').print_stats()"
+
+https://github.com/avolkov/gprof2dot-python3/blob/master/gprof2dot/gprof2dot.py
