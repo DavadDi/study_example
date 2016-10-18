@@ -1,0 +1,4 @@
+install python-devel
+=======================
+
+sudo yum install python-devel.x86_64
