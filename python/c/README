@@ -2,3 +2,14 @@ install python-devel
 =======================
 
 sudo yum install python-devel.x86_64
+
+
+call
+=======================
+$python
+
+>>>import add
+>>>add.add(3, 4)
+
+
+from: https://www.zouyesheng.com/python-module-c.html
