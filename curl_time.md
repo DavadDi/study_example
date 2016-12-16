@@ -7,16 +7,16 @@ curl -w的参数可以获取很多网络访问的细节，其中之一就是可�
 获取更加详细的连接时间的方式：
 
 	$cat curl-format.txt
-	n
-            time_namelookup:  %{time_namelookup}n
-               time_connect:  %{time_connect}n
-            time_appconnect:  %{time_appconnect}n
-           time_pretransfer:  %{time_pretransfer}n
-              time_redirect:  %{time_redirect}n
-         time_starttransfer:  %{time_starttransfer}n
-                            ----------n
-                 time_total:  %{time_total}n
-	n
+	\n
+            time_namelookup:  %{time_namelookup}\n
+               time_connect:  %{time_connect}\n
+            time_appconnect:  %{time_appconnect}\n
+           time_pretransfer:  %{time_pretransfer}\n
+              time_redirect:  %{time_redirect}\n
+         time_starttransfer:  %{time_starttransfer}\n
+                            —————\n
+                 time_total:  %{time_total}\n
+	\n
 
 使用curl：
 
@@ -25,6 +25,20 @@ curl -w的参数可以获取很多网络访问的细节，其中之一就是可�
     	-w "@curl-format.txt" tells cURL to use our format file
     	-o /dev/null redirects the output of the request to /dev/null
     	-s tells cURL not to show a progress meter 
+    
+测试：
+	
+	$curl -w "@curl-format.txt" -o /dev/null -s http://wordpress.com/
+
+            time_namelookup:  1.521
+               time_connect:  2.264
+            time_appconnect:  0.000
+           time_pretransfer:  2.264
+              time_redirect:  0.000
+         time_starttransfer:  0.000
+                            —————
+                 time_total:  2.264
+                 
 
 curl帮助文档：<a href="https://curl.haxx.se/docs/manpage.html" target="_blank">curl man</a>
 
