@@ -18,6 +18,8 @@ curl -w的参数可以获取很多网络访问的细节，其中之一就是可�
                  time_total:  %{time_total}\n
 	\n
 
+[curl-format](http://www.do1618.com/curl-format)
+
 使用curl：
 
 	$curl -w "@curl-format.txt" -o /dev/null -s http://wordpress.com/
