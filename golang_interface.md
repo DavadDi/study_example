@@ -91,6 +91,9 @@
 	(gdb) p  *s.tab._type._string
 	$29 = 0x50b920 "main.Binary"
 	
+	
+
+[see](https://research.swtch.com/interfaces)
 
 	
 	
