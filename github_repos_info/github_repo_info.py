@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 # coding=utf-8
+"""
+http://www.kryogenix.org/code/browser/sorttable/
+
+https://developer.github.com/v3/
+"""
 
 import requests
 import json
