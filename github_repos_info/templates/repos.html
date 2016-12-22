@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title> Github repo info</title>
+        <script src="{{static_url("sorttable.js")}}"></script>
+
+        <style type="text/css">
+        table.sortable {
+            font-family: verdana, arial, sans-serif;
+            font-size: 13px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+
+        }
+
+        table.sortable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+
+        }
+
+        table.sortable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+
+        }
+    </style>
+    </head>
+
+    <body>
+        <table class="sortable" align="center">
+                <th> full_name </th>
+                <th>desc</th>
+                <th>created</th>
+                <th>updated</th>
+                <th>stars</th>
+                <th>forks</th>
+                <th>open_issues</th>
+                <th>size(Byte)</th>
+
+
+            {% for rec in recs %}
+             <tr>
+                        <td><a href="{{rec['html_url']}}">{{rec['full_name']}}</a> </td>
+                        <td style="width:200px;">{{rec['description']}}</td>
+                        <td>{{rec['created_at'][0:10]}}</td>
+                        <td>{{rec['updated_at'][0:10]}}</td>
+                        <td>{{rec['stargazers_count']}}</td>
+                        <td>{{rec['forks_count']}}</td>
+                        <td>{{rec['open_issues']}}</td>
+                        <td>{{rec['size']}}</td>
+                 </tr>
+            {% end %}
+
+        </table>
+    </body>
+</html>
