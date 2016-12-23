@@ -48,7 +48,12 @@
 
             {% for rec in recs %}
              <tr>
-                        <td><a href="{{rec['html_url']}}">{{rec['full_name']}}</a> </td>
+                        <td><a href="{{rec['html_url']}}">{{rec['full_name']}}</a>
+                             {% if rec['homepage'] and rec['homepage'] != rec['html_url'] %}
+                                <a href="{{rec['homepage']}}">doc</a>
+                              {% end %}
+
+                        </td>
                         <td style="width:200px;">{{rec['description']}}</td>
                         <td>{{rec['created_at'][0:10]}}</td>
                         <td>{{rec['updated_at'][0:10]}}</td>
