@@ -37,6 +37,7 @@
     <body>
         <table class="sortable" align="center">
                 <th> full_name </th>
+                <th>lang</th>
                 <th>desc</th>
                 <th>created</th>
                 <th>updated</th>
@@ -54,6 +55,7 @@
                               {% end %}
 
                         </td>
+                        <td>{{rec['language']}}</td>
                         <td style="width:200px;">{{rec['description']}}</td>
                         <td>{{rec['created_at'][0:10]}}</td>
                         <td>{{rec['updated_at'][0:10]}}</td>

@@ -24,6 +24,7 @@ def get_repo_info(full_name):
 
     repo_key = [
         "full_name",
+        "language",
         "html_url",
         "homepage",
         "description",
