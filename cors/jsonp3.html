@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+        <script type="text/javascript">
+
+    // get test data and print
+    var flightHandler = function(data){
+        alert('The fligh you search price:' + data.price + 'remains: ' + data.tickets);
+    };
+
+    // jsonp service url, return js code
+    var url = "http://127.0.0.1:1234/flight?code=CA1998&callback=flightHandler";
+
+    // create script and set attr
+    var script = document.createElement('script');
+    script.setAttribute('src', url);
+
+    // add script tag to head, start call
+    document.getElementsByTagName('head')[0].appendChild(script); 
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
+</body></title>
+</head>
